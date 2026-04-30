@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Azuralys – Boîtes aux Lettres</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #020d1f;
+    --blue-dark: #071428;
+    --blue-mid: #0a2444;
+    --blue-accent: #0d3a6e;
+    --blue-bright: #1565c0;
+    --blue-light: #1e90ff;
+    --blue-glow: #42a5f5;
+    --blue-crystal: #64b5f6;
+    --blue-pale: #90caf9;
+    --blue-frost: #bbdefb;
+    --gold: #c9a227;
+    --gold-light: #e8c84a;
+    --white: #e8f4fd;
+    --text-dim: #7fb3d3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--blue-deep);
+    font-family: 'Raleway', sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(21, 101, 192, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(13, 58, 110, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(7, 20, 40, 0.8) 0%, transparent 70%);
+  }
+
+  /* Stars background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 15% 25%, rgba(100, 181, 246, 0.6), transparent),
+      radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 70% 30%, rgba(100, 181, 246, 0.5), transparent),
+      radial-gradient(1px 1px at 85% 60%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 25% 70%, rgba(100, 181, 246, 0.4), transparent),
+      radial-gradient(1px 1px at 55% 85%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 10% 50%, rgba(100, 181, 246, 0.3), transparent),
+      radial-gradient(2px 2px at 90% 15%, rgba(255,255,255,0.2), transparent),
+      radial-gradient(1px 1px at 63% 45%, rgba(100, 181, 246, 0.5), transparent),
+      radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.2), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue-light), var(--gold), var(--blue-light), transparent);
+    margin: 1.5rem auto 0;
+    opacity: 0.6;
+  }
+
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .logo-wrap img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(30, 144, 255, 0.7)) drop-shadow(0 0 40px rgba(30, 144, 255, 0.3));
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .guild-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--blue-crystal), var(--white), var(--blue-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.12em;
+    text-shadow: none;
+    margin-bottom: 0.3rem;
+  }
+
+  .guild-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* Main panel */
+  .panel {
+    background: linear-gradient(135deg, rgba(7, 20, 40, 0.95), rgba(10, 36, 68, 0.9));
+    border: 1px solid rgba(30, 144, 255, 0.25);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow:
+      0 0 40px rgba(13, 58, 110, 0.4),
+      inset 0 0 30px rgba(7, 20, 40, 0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-light), var(--blue-glow), var(--blue-light), transparent);
+    opacity: 0.7;
+  }
+
+  /* Section title */
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--blue-crystal);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.4));
+  }
+
+  .section-title::after {
+    background: linear-gradient(90deg, rgba(100, 181, 246, 0.4), transparent);
+  }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.8rem;
+    background: rgba(7, 20, 40, 0.8);
+    border: 1px solid rgba(30, 144, 255, 0.3);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .search-wrap input::placeholder { color: var(--text-dim); }
+  .search-wrap input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 12px rgba(30, 144, 255, 0.25);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  /* Filter buttons */
+  .filter-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.35rem 0.85rem;
+    background: rgba(7, 20, 40, 0.7);
+    border: 1px solid rgba(30, 144, 255, 0.25);
+    border-radius: 20px;
+    color: var(--text-dim);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--blue-light);
+    color: var(--white);
+    background: rgba(30, 144, 255, 0.1);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-accent));
+    border-color: rgba(100, 181, 246, 0.6);
+    color: var(--white);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+  }
+
+  .filter-sep {
+    width: 1px;
+    background: rgba(30, 144, 255, 0.2);
+    margin: 0 0.2rem;
+    align-self: stretch;
+  }
+
+  /* Members grid */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .member-card {
+    background: rgba(7, 20, 40, 0.7);
+    border: 1px solid rgba(30, 144, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .member-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--blue-light), var(--blue-glow));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .member-card:hover {
+    border-color: rgba(30, 144, 255, 0.5);
+    background: rgba(10, 36, 68, 0.85);
+    transform: translateX(3px);
+    box-shadow: 0 4px 20px rgba(13, 58, 110, 0.5);
+  }
+
+  .member-card:hover::before { opacity: 1; }
+
+  .member-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-bright));
+    border: 2px solid rgba(30, 144, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--blue-frost);
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(30, 144, 255, 0.3);
+  }
+
+  .member-info { flex: 1; min-width: 0; }
+
+  .member-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    color: var(--blue-pale);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.15rem;
+  }
+
+  .member-role {
+    font-size: 0.73rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .mailbox-badge {
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.6), rgba(13, 58, 110, 0.8));
+    border: 1px solid rgba(100, 181, 246, 0.4);
+    border-radius: 8px;
+    padding: 0.4rem 0.75rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .mailbox-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .mailbox-num {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--blue-glow);
+    line-height: 1;
+    text-shadow: 0 0 10px rgba(66, 165, 245, 0.5);
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0.3rem;
+    margin-left: 0.5rem;
+  }
+
+  .btn-icon {
+    background: none;
+    border: 1px solid rgba(30, 144, 255, 0.25);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .btn-icon:hover { border-color: var(--blue-light); color: var(--white); background: rgba(30,144,255,0.1); }
+  .btn-icon.danger:hover { border-color: #e53935; color: #ef9a9a; background: rgba(229,57,53,0.1); }
+
+  /* Add form */
+  .add-panel {
+    background: rgba(5, 15, 30, 0.6);
+    border: 1px solid rgba(30, 144, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.8rem;
+  }
+
+  .add-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--blue-crystal);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 110px auto;
+    gap: 0.7rem;
+    align-items: end;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 0.35rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    background: rgba(7, 20, 40, 0.9);
+    border: 1px solid rgba(30, 144, 255, 0.25);
+    border-radius: 7px;
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus { border-color: var(--blue-light); }
+  .form-group input::placeholder { color: var(--text-dim); opacity: 0.6; }
+  .form-group select option { background: #071428; color: var(--white); }
+
+  .btn-add {
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-accent));
+    border: 1px solid rgba(100, 181, 246, 0.4);
+    border-radius: 7px;
+    color: var(--white);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .btn-add:hover {
+    background: linear-gradient(135deg, var(--blue-light), var(--blue-bright));
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.8rem; opacity: 0.5; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 13, 31, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    background: linear-gradient(135deg, rgba(7, 20, 40, 0.98), rgba(10, 36, 68, 0.95));
+    border: 1px solid rgba(30, 144, 255, 0.35);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 0 50px rgba(13, 58, 110, 0.6);
+    animation: slideUp 0.25s ease;
+  }
+
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--blue-crystal);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.7rem;
+    justify-content: flex-end;
+    margin-top: 1.2rem;
+  }
+
+  .btn-cancel {
+    padding: 0.55rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(30, 144, 255, 0.25);
+    border-radius: 7px;
+    color: var(--text-dim);
+    font-family: 'Raleway', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-cancel:hover { border-color: var(--blue-light); color: var(--white); }
+
+  .btn-save {
+    padding: 0.55rem 1.2rem;
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-accent));
+    border: 1px solid rgba(100, 181, 246, 0.4);
+    border-radius: 7px;
+    color: var(--white);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .btn-save:hover { box-shadow: 0 0 12px rgba(30,144,255,0.4); }
+
+  /* Confirm modal */
+  .confirm-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 13, 31, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+  }
+
+  .confirm-box {
+    background: linear-gradient(135deg, rgba(7, 20, 40, 0.98), rgba(10, 36, 68, 0.95));
+    border: 1px solid rgba(229, 57, 53, 0.4);
+    border-radius: 14px;
+    padding: 1.8rem 2rem;
+    width: 90%;
+    max-width: 320px;
+    box-shadow: 0 0 40px rgba(229, 57, 53, 0.2);
+    text-align: center;
+    animation: slideUp 0.2s ease;
+  }
+
+  .confirm-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+
+  .confirm-msg {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    color: var(--blue-pale);
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .confirm-actions {
+    display: flex;
+    gap: 0.7rem;
+    justify-content: center;
+  }
+
+  .btn-confirm-ok {
+    padding: 0.55rem 1.3rem;
+    background: linear-gradient(135deg, #c62828, #e53935);
+    border: 1px solid rgba(239, 154, 154, 0.4);
+    border-radius: 7px;
+    color: var(--white);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-confirm-ok:hover { box-shadow: 0 0 12px rgba(229, 57, 53, 0.5); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    opacity: 0.5;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 600px) {
+    .guild-title { font-size: 1.9rem; }
+    .form-row { grid-template-columns: 1fr 1fr; }
+    .form-row > *:last-child { grid-column: 1/-1; }
+    .members-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div class="logo-wrap">
+      <img id="griffinImg" alt="Griffon des Azuralys" />
+    </div>
+    <h1 class="guild-title">Les Azuralys</h1>
+    <p class="guild-subtitle">⚔ Boîtes aux Lettres RP ⚔</p>
+  </header>
+
+  <div class="panel">
+    <div class="section-title">Membres</div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Rechercher un personnage..." oninput="filterMembers()" />
+    </div>
+
+    <div class="filter-wrap" id="filterWrap">
+      <button class="filter-btn active" onclick="setFilter('')" data-filter="">Tous</button>
+      <div class="filter-sep"></div>
+      <button class="filter-btn" onclick="setFilter('A1S1')" data-filter="A1S1">A1S1</button>
+      <button class="filter-btn" onclick="setFilter('A1S2')" data-filter="A1S2">A1S2</button>
+      <button class="filter-btn" onclick="setFilter('A2S1')" data-filter="A2S1">A2S1</button>
+      <button class="filter-btn" onclick="setFilter('A2S2')" data-filter="A2S2">A2S2</button>
+      <button class="filter-btn" onclick="setFilter('A3S1')" data-filter="A3S1">A3S1</button>
+      <button class="filter-btn" onclick="setFilter('A3S2')" data-filter="A3S2">A3S2</button>
+      <button class="filter-btn" onclick="setFilter('A4S1')" data-filter="A4S1">A4S1</button>
+      <button class="filter-btn" onclick="setFilter('A4S2')" data-filter="A4S2">A4S2</button>
+      <div class="filter-sep"></div>
+      <button class="filter-btn" onclick="setFilter('Directrice de Maison')" data-filter="Directrice de Maison">Directrice</button>
+      <button class="filter-btn" onclick="setFilter('Professeur')" data-filter="Professeur">Professeur</button>
+    </div>
+
+    <div class="members-grid" id="membersGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="icon">📮</div>
+      <div>Aucun personnage trouvé.</div>
+    </div>
+
+    <div class="add-panel">
+      <div class="add-title">✦ Ajouter un personnage</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nom du personnage</label>
+          <input type="text" id="newName" placeholder="Ex: Aelindra" />
+        </div>
+        <div class="form-group">
+          <label>Catégorie</label>
+          <select id="newRole">
+            <option value="">— Choisir —</option>
+            <optgroup label="Années & Semestres">
+              <option value="A1S1">A1S1</option>
+              <option value="A1S2">A1S2</option>
+              <option value="A2S1">A2S1</option>
+              <option value="A2S2">A2S2</option>
+              <option value="A3S1">A3S1</option>
+              <option value="A3S2">A3S2</option>
+              <option value="A4S1">A4S1</option>
+              <option value="A4S2">A4S2</option>
+            </optgroup>
+            <optgroup label="Personnel">
+              <option value="Directrice de Maison">Directrice de Maison</option>
+              <option value="Professeur">Professeur</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>N° Boîte</label>
+          <input type="text" id="newMailbox" placeholder="Ex: 42" />
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn-add" onclick="addMember()">+ Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Les Azuralys · Guilde RP</div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal" style="display:none" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-title">✦ Modifier le personnage</div>
+    <input type="hidden" id="editId" />
+    <div class="form-group" style="margin-bottom:0.8rem">
+      <label>Nom du personnage</label>
+      <input type="text" id="editName" />
+    </div>
+    <div class="form-group" style="margin-bottom:0.8rem">
+      <label>Catégorie</label>
+      <select id="editRole">
+        <option value="">— Choisir —</option>
+        <optgroup label="Années & Semestres">
+          <option value="A1S1">A1S1</option>
+          <option value="A1S2">A1S2</option>
+          <option value="A2S1">A2S1</option>
+          <option value="A2S2">A2S2</option>
+          <option value="A3S1">A3S1</option>
+          <option value="A3S2">A3S2</option>
+          <option value="A4S1">A4S1</option>
+          <option value="A4S2">A4S2</option>
+        </optgroup>
+        <optgroup label="Personnel">
+          <option value="Directrice de Maison">Directrice de Maison</option>
+          <option value="Professeur">Professeur</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>N° Boîte aux lettres</label>
+      <input type="text" id="editMailbox" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEditModal()">Annuler</button>
+      <button class="btn-save" onclick="saveEdit()">Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="confirm-modal" id="confirmModal" style="display:none">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-msg" id="confirmMessage"></div>
+    <div class="confirm-actions">
+      <button class="btn-cancel" id="confirmCancel">Annuler</button>
+      <button class="btn-confirm-ok" id="confirmOk">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAh19clIUrvbFbZgML0Buy2jneraNSqAz8",
+  authDomain: "azuralys-e90b0.firebaseapp.com",
+  projectId: "azuralys-e90b0",
+  storageBucket: "azuralys-e90b0.firebasestorage.app",
+  messagingSenderId: "964288650159",
+  appId: "1:964288650159:web:b9516f5a0d9139e7d06d5a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const membersCol = collection(db, "members");
+
+// Griffin image (extrait du fichier original)
+const griffinB64 = document.getElementById('griffinImg');
+
+let members = [];
+let activeFilter = '';
+
+function setFilter(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === cat);
+  });
+  renderMembers(document.getElementById('searchInput').value);
+}
+window.setFilter = setFilter;
+
+function getInitials(name) {
+  return name.split(/\s+|'/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderMembers(filter = '') {
+  const grid = document.getElementById('membersGrid');
+  const empty = document.getElementById('emptyState');
+  let filtered = members.filter(m =>
+    m.name.toLowerCase().includes((filter||'').toLowerCase()) ||
+    (m.role && m.role.toLowerCase().includes((filter||'').toLowerCase()))
+  );
+  if (activeFilter) {
+    filtered = filtered.filter(m => m.role === activeFilter);
+  }
+  if (filtered.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map(m => `
+    <div class="member-card" id="card-${m.id}">
+      <div class="member-avatar">${getInitials(m.name)}</div>
+      <div class="member-info">
+        <div class="member-name">${escHtml(m.name)}</div>
+        <div class="member-role">${escHtml(m.role || '—')}</div>
+      </div>
+      <div class="mailbox-badge">
+        <span class="mailbox-label">BAL</span>
+        <span class="mailbox-num">${escHtml(m.mailbox)}</span>
+      </div>
+      <div class="card-actions">
+        <button class="btn-icon" title="Modifier" onclick="openEdit('${m.id}')">✏</button>
+        <button class="btn-icon danger" title="Supprimer" onclick="deleteMember('${m.id}')">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.filterMembers = function() {
+  renderMembers(document.getElementById('searchInput').value);
+};
+
+// Écoute temps réel Firestore — tous les visiteurs voient la même liste !
+onSnapshot(membersCol, (snapshot) => {
+  members = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  members.sort((a, b) => (a.mailbox || '').localeCompare(b.mailbox || '', undefined, {numeric: true}));
+  renderMembers(document.getElementById('searchInput') ? document.getElementById('searchInput').value : '');
+});
+
+window.addMember = async function() {
+  const name = document.getElementById('newName').value.trim();
+  const role = document.getElementById('newRole').value.trim();
+  const mailbox = document.getElementById('newMailbox').value.trim();
+  if (!name || !mailbox) { alert('Le nom et le numéro de boîte sont obligatoires.'); return; }
+  await addDoc(membersCol, { name, role, mailbox });
+  document.getElementById('newName').value = '';
+  document.getElementById('newRole').value = '';
+  document.getElementById('newMailbox').value = '';
+};
+
+window.deleteMember = function(id) {
+  showConfirm('Supprimer ce personnage ?', async () => {
+    await deleteDoc(doc(db, "members", id));
+  });
+};
+
+function showConfirm(message, onConfirm) {
+  document.getElementById('confirmMessage').textContent = message;
+  document.getElementById('confirmModal').style.display = 'flex';
+  document.getElementById('confirmOk').onclick = () => {
+    document.getElementById('confirmModal').style.display = 'none';
+    onConfirm();
+  };
+  document.getElementById('confirmCancel').onclick = () => {
+    document.getElementById('confirmModal').style.display = 'none';
+  };
+}
+
+window.openEdit = function(id) {
+  const m = members.find(m => m.id === id);
+  if (!m) return;
+  document.getElementById('editId').value = id;
+  document.getElementById('editName').value = m.name;
+  document.getElementById('editRole').value = m.role || '';
+  document.getElementById('editMailbox').value = m.mailbox;
+  document.getElementById('editModal').style.display = 'flex';
+};
+
+window.closeEditModal = function() {
+  document.getElementById('editModal').style.display = 'none';
+};
+
+window.closeModal = function(e) {
+  if (e.target === document.getElementById('editModal')) window.closeEditModal();
+};
+
+window.saveEdit = async function() {
+  const id = document.getElementById('editId').value;
+  const name = document.getElementById('editName').value.trim();
+  const role = document.getElementById('editRole').value.trim();
+  const mailbox = document.getElementById('editMailbox').value.trim();
+  if (!name || !mailbox) { alert('Le nom et le numéro sont obligatoires.'); return; }
+  await updateDoc(doc(db, "members", id), { name, role, mailbox });
+  window.closeEditModal();
+};
+</script>
+</body>
+</html>
